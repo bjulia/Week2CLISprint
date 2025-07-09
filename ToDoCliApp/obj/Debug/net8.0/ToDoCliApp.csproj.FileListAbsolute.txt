@@ -1,0 +1,15 @@
+D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\bin\Debug\net8.0\ToDoCliApp.exe
+D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\bin\Debug\net8.0\ToDoCliApp.deps.json
+D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\bin\Debug\net8.0\ToDoCliApp.runtimeconfig.json
+D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\bin\Debug\net8.0\ToDoCliApp.dll
+D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\bin\Debug\net8.0\ToDoCliApp.pdb
+D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\obj\Debug\net8.0\ToDoCliApp.GeneratedMSBuildEditorConfig.editorconfig
+D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\obj\Debug\net8.0\ToDoCliApp.AssemblyInfoInputs.cache
+D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\obj\Debug\net8.0\ToDoCliApp.AssemblyInfo.cs
+D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\obj\Debug\net8.0\ToDoCliApp.csproj.CoreCompileInputs.cache
+D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\obj\Debug\net8.0\ToDoCliApp.sourcelink.json
+D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\obj\Debug\net8.0\ToDoCliApp.dll
+D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\obj\Debug\net8.0\refint\ToDoCliApp.dll
+D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\obj\Debug\net8.0\ToDoCliApp.pdb
+D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\obj\Debug\net8.0\ToDoCliApp.genruntimeconfig.cache
+D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\obj\Debug\net8.0\ref\ToDoCliApp.dll
