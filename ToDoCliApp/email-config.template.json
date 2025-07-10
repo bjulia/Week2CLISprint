@@ -1,0 +1,7 @@
+{
+  "ApiKey": "YOUR_SENDGRID_API_KEY_HERE",
+  "FromEmail": "your-email@example.com",
+  "FromName": "Your Name",
+  "DefaultToEmail": "your-email@example.com",
+  "DefaultToName": "Your Name"
+}

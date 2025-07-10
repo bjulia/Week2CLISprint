@@ -1,0 +1,44 @@
+# Build results
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+
+# User-specific files
+*.user
+*.userosscache
+*.sln.docstates
+
+# Email configuration (contains API keys)
+email-config.json
+
+# To-do data (may contain personal information)
+todo.json
+
+# Visual Studio
+.vs/
+*.sln.ide/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Package files
+*.nupkg
+*.snupkg
+
+# NuGet
+packages/
+!packages/build/
+*.nuget.props
+*.nuget.targets

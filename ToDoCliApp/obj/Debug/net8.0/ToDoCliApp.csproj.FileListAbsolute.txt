@@ -13,3 +13,8 @@ D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\obj\Debug\net8.
 D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\obj\Debug\net8.0\ToDoCliApp.pdb
 D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\obj\Debug\net8.0\ToDoCliApp.genruntimeconfig.cache
 D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\obj\Debug\net8.0\ref\ToDoCliApp.dll
+D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\bin\Debug\net8.0\Newtonsoft.Json.dll
+D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\bin\Debug\net8.0\SendGrid.dll
+D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\bin\Debug\net8.0\StarkbankEcdsa.dll
+D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\obj\Debug\net8.0\ToDoCliApp.csproj.AssemblyReference.cache
+D:\Users\aajuliab\Projects\ChatGPTBobJ\Week2CLISprint\ToDoCliApp\obj\Debug\net8.0\ToDoCliApp.csproj.Up2Date

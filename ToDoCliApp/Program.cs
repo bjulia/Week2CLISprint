@@ -1,15 +1,18 @@
-﻿
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
 class Program
 {
     const string FileName = "todo.json";
     static List<ToDoItem> ToDoList = new();
+    static EmailConfig EmailConfiguration = new();
+    static EmailService? EmailServiceInstance;
 
-    static void Main()
+    static async Task Main()
     {
         LoadToDoList();
+        LoadEmailConfig();
+        
         while (true)
         {
             Console.WriteLine("\nTo-Do List CLI");
@@ -18,7 +21,10 @@ class Program
             Console.WriteLine("3. Edit a to-do item");
             Console.WriteLine("4. Delete a to-do item");
             Console.WriteLine("5. Mark as complete/incomplete");
-            Console.WriteLine("6. Exit");
+            Console.WriteLine("6. Email Configuration");
+            Console.WriteLine("7. Send Task Reminder Email");
+            Console.WriteLine("8. Send To-Do List Summary Email");
+            Console.WriteLine("9. Exit");
             Console.Write("Select an option: ");
             var input = Console.ReadLine();
             switch (input)
@@ -28,7 +34,10 @@ class Program
                 case "3": EditItem(); break;
                 case "4": DeleteItem(); break;
                 case "5": ToggleComplete(); break;
-                case "6": SaveToDoList(); return;
+                case "6": ConfigureEmail(); break;
+                case "7": await SendTaskReminderEmail(); break;
+                case "8": await SendSummaryEmail(); break;
+                case "9": SaveToDoList(); return;
                 default: Console.WriteLine("Invalid option. Try again."); break;
             }
         }
@@ -206,5 +215,170 @@ class Program
         item.CompleteFlag = !item.CompleteFlag;
         SaveToDoList();
         Console.WriteLine($"Item marked as {(item.CompleteFlag ? "complete" : "incomplete")}.");
+    }
+    
+    static void LoadEmailConfig()
+    {
+        EmailConfiguration = EmailConfig.Load();
+        if (EmailConfiguration.IsConfigured())
+        {
+            EmailServiceInstance = new EmailService(
+                EmailConfiguration.ApiKey,
+                EmailConfiguration.FromEmail,
+                EmailConfiguration.FromName);
+        }
+    }
+
+    static void ConfigureEmail()
+    {
+        Console.WriteLine("\n=== Email Configuration ===");
+        Console.WriteLine("Enter your SendGrid configuration details:");
+        
+        Console.Write($"SendGrid API Key (current: {(string.IsNullOrWhiteSpace(EmailConfiguration.ApiKey) ? "not set" : "***hidden***")}): ");
+        var apiKey = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(apiKey))
+        {
+            EmailConfiguration.ApiKey = apiKey;
+        }
+        
+        Console.Write($"From Email (current: {EmailConfiguration.FromEmail}): ");
+        var fromEmail = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(fromEmail))
+        {
+            EmailConfiguration.FromEmail = fromEmail;
+        }
+        
+        Console.Write($"From Name (current: {EmailConfiguration.FromName}): ");
+        var fromName = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(fromName))
+        {
+            EmailConfiguration.FromName = fromName;
+        }
+        
+        Console.Write($"Default To Email (current: {EmailConfiguration.DefaultToEmail}): ");
+        var toEmail = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(toEmail))
+        {
+            EmailConfiguration.DefaultToEmail = toEmail;
+        }
+        
+        Console.Write($"Default To Name (current: {EmailConfiguration.DefaultToName}): ");
+        var toName = Console.ReadLine();
+        if (!string.IsNullOrWhiteSpace(toName))
+        {
+            EmailConfiguration.DefaultToName = toName;
+        }
+        
+        EmailConfiguration.Save();
+        LoadEmailConfig(); // Reload to update the service instance
+        
+        Console.WriteLine("Email configuration saved!");
+        
+        if (EmailConfiguration.IsConfigured())
+        {
+            Console.WriteLine("✅ Email functionality is now available.");
+        }
+        else
+        {
+            Console.WriteLine("⚠️  Email configuration is incomplete. Please set API Key, From Email, and Default To Email.");
+        }
+    }
+
+    static async Task SendTaskReminderEmail()
+    {
+        if (!EmailConfiguration.IsConfigured() || EmailServiceInstance == null)
+        {
+            Console.WriteLine("Email is not configured. Please configure email settings first (option 6).");
+            return;
+        }
+        
+        if (ToDoList.Count == 0)
+        {
+            Console.WriteLine("No to-do items found.");
+            return;
+        }
+        
+        Console.Write("Enter ID of task to send reminder for: ");
+        if (!int.TryParse(Console.ReadLine(), out int id))
+        {
+            Console.WriteLine("Invalid ID.");
+            return;
+        }
+        
+        var item = ToDoList.FirstOrDefault(x => x.ID == id);
+        if (item == null)
+        {
+            Console.WriteLine("Task not found.");
+            return;
+        }
+        
+        Console.Write($"Send to email (press Enter for default: {EmailConfiguration.DefaultToEmail}): ");
+        var toEmail = Console.ReadLine();
+        if (string.IsNullOrWhiteSpace(toEmail))
+        {
+            toEmail = EmailConfiguration.DefaultToEmail;
+        }
+        
+        Console.Write($"Send to name (press Enter for default: {EmailConfiguration.DefaultToName}): ");
+        var toName = Console.ReadLine();
+        if (string.IsNullOrWhiteSpace(toName))
+        {
+            toName = EmailConfiguration.DefaultToName;
+        }
+        
+        Console.WriteLine("Sending email...");
+        
+        var success = await EmailServiceInstance.SendToDoReminderAsync(toEmail, toName, item);
+        
+        if (success)
+        {
+            Console.WriteLine("✅ Email sent successfully!");
+        }
+        else
+        {
+            Console.WriteLine("❌ Failed to send email. Please check your configuration and try again.");
+        }
+    }
+
+    static async Task SendSummaryEmail()
+    {
+        if (!EmailConfiguration.IsConfigured() || EmailServiceInstance == null)
+        {
+            Console.WriteLine("Email is not configured. Please configure email settings first (option 6).");
+            return;
+        }
+        
+        if (ToDoList.Count == 0)
+        {
+            Console.WriteLine("No to-do items found.");
+            return;
+        }
+        
+        Console.Write($"Send to email (press Enter for default: {EmailConfiguration.DefaultToEmail}): ");
+        var toEmail = Console.ReadLine();
+        if (string.IsNullOrWhiteSpace(toEmail))
+        {
+            toEmail = EmailConfiguration.DefaultToEmail;
+        }
+        
+        Console.Write($"Send to name (press Enter for default: {EmailConfiguration.DefaultToName}): ");
+        var toName = Console.ReadLine();
+        if (string.IsNullOrWhiteSpace(toName))
+        {
+            toName = EmailConfiguration.DefaultToName;
+        }
+        
+        Console.WriteLine("Sending email...");
+        
+        var success = await EmailServiceInstance.SendToDoListSummaryAsync(toEmail, toName, ToDoList);
+        
+        if (success)
+        {
+            Console.WriteLine("✅ Email sent successfully!");
+        }
+        else
+        {
+            Console.WriteLine("❌ Failed to send email. Please check your configuration and try again.");
+        }
     }
 }
