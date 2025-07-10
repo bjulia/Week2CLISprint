@@ -3,7 +3,12 @@ using System.Text.Json.Serialization;
 
 class Program
 {
-    const string FileName = "todo.json";
+    // Use absolute path to ensure consistent data location
+    static readonly string FileName = Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+        "ToDoCliApp", 
+        "todo.json"
+    );
     static List<ToDoItem> ToDoList = new();
     static EmailConfig EmailConfiguration = new();
     static EmailService? EmailServiceInstance;
@@ -45,6 +50,13 @@ class Program
 
     static void LoadToDoList()
     {
+        // Ensure the directory exists
+        var directory = Path.GetDirectoryName(FileName);
+        if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+        {
+            Directory.CreateDirectory(directory);
+        }
+
         if (File.Exists(FileName))
         {
             try

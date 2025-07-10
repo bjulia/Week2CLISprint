@@ -1,0 +1,26 @@
+[
+  {
+    "ID": 1,
+    "Name": "Create CLI App",
+    "CreateDate": "2025-07-09T16:51:36.7552342-04:00",
+    "DueDate": "2025-07-10T00:00:00",
+    "CompleteFlag": true,
+    "Notes": ""
+  },
+  {
+    "ID": 2,
+    "Name": "Modify CLI App",
+    "CreateDate": "2025-07-09T16:52:18.9111276-04:00",
+    "DueDate": null,
+    "CompleteFlag": false,
+    "Notes": "This is the hard part"
+  },
+  {
+    "ID": 3,
+    "Name": "Bob Item 1",
+    "CreateDate": "2025-07-10T16:57:39.5681571-04:00",
+    "DueDate": null,
+    "CompleteFlag": false,
+    "Notes": "First item (why did it disappear from yesterday?)"
+  }
+]

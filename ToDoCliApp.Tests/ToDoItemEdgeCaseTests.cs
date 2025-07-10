@@ -267,22 +267,12 @@ namespace ToDoCliApp.Tests
             try
             {
                 var incompleteList = JsonConvert.DeserializeObject<List<ToDoItem>>(File.ReadAllText(testFilePath));
-                // Newtonsoft.Json is more lenient - it may not throw exception for missing required fields
-                // Instead, check if the deserialized object has null values for required fields
-                if (incompleteList != null && incompleteList.Count > 0)
-                {
-                    // This is acceptable behavior - some JSON deserializers are lenient
-                    Assert.IsTrue(true, "JSON deserialization handled missing fields gracefully");
-                }
-                else
-                {
-                    Assert.Fail("Deserialization should have produced at least one item");
-                }
+                Assert.Fail("Should have thrown exception for missing required fields");
             }
             catch (JsonException)
             {
-                // This is also acceptable behavior - strict JSON validation
-                Assert.IsTrue(true, "JSON deserialization properly validated required fields");
+                // Expected behavior - missing required fields should throw exception
+                Assert.IsTrue(true);
             }
 
             // Test Case 3e: Handle very large JSON file (performance test)
